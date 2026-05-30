@@ -1,0 +1,18 @@
+# Arquivo: GS_2026_1_Grupo_MissionControl_1CCPS.txt
+
+Nome completo e RM de todos os integrantes:
+- Lincoln Simão Pereira — RM: 567284
+- Miguel Silva Bezerra — RM: 566763
+- Nicolas Sakaue Nishimura — RM: 567752
+
+Modalidade: Trio
+
+Trilha escolhida: EnviroSat (Observação Ambiental)
+
+Link do repositório GitHub: https://github.com/lincoln743/GS_Prompteia
+
+Link do vídeo de demonstração: https://www.youtube.com/watch?v=SEU_ID_AQUI
+
+Disciplina: Prompt Engineering and Artificial Intelligence
+Professor: Jorge Luiz Gomes
+FIAP · Ciência da Computação · Global Solution 2026.1

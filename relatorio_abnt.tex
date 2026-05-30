@@ -1,0 +1,258 @@
+% =====================================================================
+% Relatório Global Solution 2026.1 — Mission Control AI (Trilha EnviroSat)
+% FIAP · Ciência da Computação · Prompt Engineering and AI
+% Formatado segundo as normas da ABNT (article configurado manualmente).
+% Compilar com: pdflatex relatorio_abnt.tex  (rodar 2x para o sumário)
+% =====================================================================
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{mathptmx}              % fonte Times (padrão ABNT)
+\usepackage[a4paper,left=3cm,top=3cm,right=2cm,bottom=2cm]{geometry}
+\usepackage{setspace}             % espaçamento 1,5
+\usepackage{indentfirst}          % recuo no primeiro parágrafo da seção
+\usepackage{titlesec}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+
+% ---- Layout ABNT ----------------------------------------------------
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+
+% Títulos de seção em caixa alta, numerados (ABNT)
+\titleformat{\section}{\normalfont\bfseries\large}{\thesection}{0.6em}{\MakeUppercase}
+\titleformat{\subsection}{\normalfont\bfseries\normalsize}{\thesubsection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.2\baselineskip}{0.6\baselineskip}
+\titlespacing*{\subsection}{0pt}{1.0\baselineskip}{0.4\baselineskip}
+
+% ---- Estilo de código ----------------------------------------------
+\definecolor{codebg}{HTML}{F5F5F7}
+\definecolor{codekw}{HTML}{A626A4}
+\definecolor{codecmt}{HTML}{6A737D}
+\definecolor{codestr}{HTML}{22863A}
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  backgroundcolor=\color{codebg},
+  keywordstyle=\color{codekw}\bfseries,
+  commentstyle=\color{codecmt}\itshape,
+  stringstyle=\color{codestr},
+  numbers=left, numberstyle=\tiny\color{codecmt}, numbersep=8pt,
+  breaklines=true, frame=single, rulecolor=\color{gray!40},
+  showstringspaces=false, tabsize=4, captionpos=b,
+  literate={á}{{\'a}}1 {ã}{{\~a}}1 {â}{{\^a}}1 {é}{{\'e}}1 {ê}{{\^e}}1
+           {í}{{\'i}}1 {ó}{{\'o}}1 {ô}{{\^o}}1 {õ}{{\~o}}1 {ú}{{\'u}}1
+           {ç}{{\c c}}1 {Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1
+           {Ç}{{\c C}}1 {°}{{\textdegree}}1
+}
+
+% =====================================================================
+\begin{document}
+
+% --------------------------- CAPA -----------------------------------
+\begin{titlepage}
+\begin{center}
+{\large\bfseries FIAP --- FACULDADE DE INFORMÁTICA E ADMINISTRAÇÃO PAULISTA\par}
+{\large CIÊNCIA DA COMPUTAÇÃO\par}
+\vspace{1cm}
+{\normalsize Lincoln Simão Pereira --- RM 567284\par}
+{\normalsize Miguel Silva Bezerra --- RM 566763\par}
+{\normalsize Nicolas Sakaue Nishimura --- RM 567752\par}
+{\normalsize Turma: 1CCPS\par}
+\vfill
+{\LARGE\bfseries MISSION CONTROL AI\par}
+\vspace{0.4cm}
+{\large Monitoramento de telemetria do satélite EnviroSat com IA generativa\\ aplicada ao combate a incêndios e ao monitoramento ambiental\par}
+\vfill
+{\normalsize Global Solution 2026.1\\ Disciplina: Prompt Engineering and Artificial Intelligence\par}
+\vspace{2cm}
+{\normalsize São Paulo\par}
+{\normalsize 2026\par}
+\end{center}
+\end{titlepage}
+
+% ------------------------ FOLHA DE ROSTO ----------------------------
+\begin{titlepage}
+\begin{center}
+{\normalsize Lincoln Simão Pereira --- RM 567284\par}
+{\normalsize Miguel Silva Bezerra --- RM 566763\par}
+{\normalsize Nicolas Sakaue Nishimura --- RM 567752\par}
+{\normalsize Turma: 1CCPS\par}
+\vspace{3cm}
+{\LARGE\bfseries MISSION CONTROL AI\par}
+\vspace{0.3cm}
+{\large Monitoramento de telemetria do satélite EnviroSat com IA generativa\par}
+\end{center}
+\vspace{2cm}
+\begin{flushright}
+\begin{minipage}{0.55\textwidth}
+\onehalfspacing\small
+Relatório técnico apresentado à FIAP como requisito parcial da Global Solution 2026.1, na disciplina de Prompt Engineering and Artificial Intelligence, do curso de Ciência da Computação.\\[0.5cm]
+Orientador: Prof. Jorge Luiz Gomes.
+\end{minipage}
+\end{flushright}
+\vfill
+\begin{center}
+{\normalsize São Paulo\par}
+{\normalsize 2026\par}
+\end{center}
+\end{titlepage}
+
+% ----------------------------- RESUMO -------------------------------
+\begin{center}\textbf{RESUMO}\end{center}
+\noindent
+Este relatório descreve o desenvolvimento do \textit{Mission Control AI}, sistema de monitoramento operacional de um satélite simulado de observação ambiental (trilha EnviroSat), construído na Global Solution 2026.1 da FIAP. O objetivo foi exercitar o ciclo completo de engenharia de IA aplicada: geração de telemetria simulada, detecção de anomalias por lógica determinística em Python, integração de um modelo de linguagem de grande porte (\texttt{gpt-oss:120b}, via Ollama Cloud) e exposição dos resultados em uma interface de linha de comando. A contribuição central é metodológica: a separação explícita entre a \textit{decisão} (classificação de severidade feita em código) e a \textit{contextualização} (explicação em linguagem natural feita pela IA), além da amarração sistemática entre o estado técnico em órbita e seu impacto ambiental na Terra. Os resultados demonstram um sistema funcional, com respostas consistentes entre execuções após três iterações do \textit{prompt}, e evidenciam o valor da técnica de \textit{few-shot prompting} e da injeção dinâmica de dados para a qualidade da análise gerada.
+
+\vspace{0.4cm}
+\noindent\textbf{Palavras-chave:} Engenharia de \textit{Prompt}. IA Generativa. Telemetria de Satélite. Observação Ambiental. Ollama Cloud.
+
+\newpage
+
+% ----------------------------- SUMÁRIO ------------------------------
+\renewcommand{\contentsname}{SUMÁRIO}
+\tableofcontents
+\newpage
+
+% =====================================================================
+\section{Introdução}
+
+A exploração espacial deixou de ser ficção científica para se tornar infraestrutura crítica do cotidiano: previsão de safras, detecção de desmatamento, telecomunicações e navegação dependem de constelações orbitais. Missões espaciais geram volumes massivos de dados de telemetria que precisam ser interpretados rapidamente, e é nesse intervalo entre o dado bruto orbital e a decisão humana em terra que a Inteligência Artificial (IA) generativa encontra aplicação direta.
+
+Este trabalho, desenvolvido no âmbito da Global Solution 2026.1 da FIAP, materializa esse cenário em pequena escala. O grupo escolheu a trilha \textbf{EnviroSat}, voltada à observação ambiental, por concentrar o caso de uso de maior relevância social no Brasil: o combate a incêndios florestais e o monitoramento de áreas protegidas. O sistema simula um satélite ambiental (inspirado no Amazônia-1 e no Landsat), monitora sua saúde, detecta anomalias e usa um modelo de linguagem para traduzir o estado da missão em recomendações acionáveis.
+
+\subsection{Objetivos}
+
+O objetivo geral é demonstrar domínio do ciclo \textit{prompt} $\rightarrow$ modelo $\rightarrow$ resposta contextualizada. Como objetivos específicos, destacam-se: (i) gerar telemetria simulada plausível de seis parâmetros do satélite; (ii) implementar, em Python, regras determinísticas de alerta e respostas automatizadas a situações críticas; (iii) integrar o modelo \texttt{gpt-oss:120b} via Ollama Cloud com injeção dinâmica dos dados de telemetria; e (iv) articular explicitamente o impacto terrestre de cada estado da missão.
+
+\section{Fundamentação e Contexto}
+
+No Brasil, o INPE opera os sistemas DETER e PRODES com base em satélites como o CBERS e o Amazônia-1, que fundamentam ações do IBAMA e de brigadas estaduais de combate a incêndio. O setor de \textit{New Space} nacional cresce em ritmo acelerado, e a demanda por profissionais capazes de conectar dados orbitais a problemas terrestres é elevada.
+
+A IA generativa contribui nesse contexto em três frentes: \textbf{interpretar} telemetria (transformar valores numéricos em diagnósticos compreensíveis), \textbf{detectar} padrões de risco que isoladamente passariam despercebidos e \textbf{traduzir} a anomalia técnica em impacto concreto para o cliente terrestre. O diferencial adotado neste projeto é justamente essa terceira frente: cada análise amarra o estado do satélite à sua consequência ambiental.
+
+\section{Metodologia e Arquitetura}
+
+O sistema foi estruturado como um projeto Python modular, executável via \texttt{python main.py}, seguindo a estrutura oficial do desafio. A Tabela~\ref{tab:modulos} resume a responsabilidade de cada módulo.
+
+\begin{table}[H]
+\centering
+\caption{Módulos do sistema e suas responsabilidades}
+\label{tab:modulos}
+\small
+\begin{tabular}{@{}ll@{}}
+\toprule
+\textbf{Módulo} & \textbf{Responsabilidade} \\
+\midrule
+\texttt{main.py} & Ponto de entrada; instancia o motor e inicia a interface. \\
+\texttt{src/ui.py} & Interface CLI (Rich + prompt-toolkit), comandos e loop de entrada. \\
+\texttt{src/telemetria.py} & Geração de dados simulados com evolução temporal. \\
+\texttt{src/alertas.py} & \textit{Thresholds}, severidade e respostas automatizadas. \\
+\texttt{src/engine.py} & Orquestração: coleta, avalia, monta o \textit{prompt} e chama a IA. \\
+\texttt{prompts/system\_prompt.md} & \textit{System prompt} da IA (papel, escopo, formato, \textit{few-shot}). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A decisão arquitetural mais importante foi a \textbf{separação entre decisão e contextualização}. A classificação de severidade (NOMINAL, ATENÇÃO, CRÍTICO) é feita exclusivamente por lógica determinística em Python; o modelo de linguagem nunca decide se algo é crítico --- ele apenas explica e contextualiza a severidade já calculada. Essa escolha evita a inconsistência típica de delegar regras de negócio a um modelo não-determinístico.
+
+\subsection{Geração de telemetria}
+
+O módulo \texttt{telemetria.py} mantém um estado interno que evolui de ciclo em ciclo (\textit{random walk} dentro de faixas plausíveis), simulando uma série temporal em vez de valores independentes. São monitorados seis parâmetros: temperatura do \textit{payload}, energia da bateria, ocupação do \textit{buffer} de imagens, precisão de geolocalização, qualidade do \textit{downlink} e número de focos de calor detectados. O módulo permite ainda forçar cenários determinísticos (por exemplo, \texttt{falha\_energia} ou \texttt{incendio\_intenso}) para teste e demonstração.
+
+\subsection{Lógica de alertas e respostas automatizadas}
+
+O módulo \texttt{alertas.py} concentra os \textit{thresholds} e a tomada de decisão. Cada parâmetro possui limites de atenção e crítico, com sentido (acima ou abaixo) definido conforme sua semântica. Em nível crítico, o sistema dispara uma \textbf{resposta automatizada} --- por exemplo, ativar o \textsc{Modo Economia} quando a bateria cai abaixo de 20\%. A Listagem~\ref{lst:alertas} apresenta o trecho central da avaliação.
+
+\begin{lstlisting}[language=Python, caption={Avaliação determinística de alertas}, label={lst:alertas}]
+def avaliar(dados):
+    """Avalia um snapshot e retorna a lista de alertas ativos."""
+    alertas = []
+    for parametro, regra in THRESHOLDS.items():
+        valor = dados.get(parametro)
+        if valor is None:
+            continue
+        nivel = None
+        if _dispara(valor, regra["critico"], regra["sentido"]):
+            nivel = "CRITICO"
+        elif _dispara(valor, regra["atencao"], regra["sentido"]):
+            nivel = "ATENCAO"
+        if nivel:
+            alerta = {"parametro": parametro, "valor": valor,
+                      "nivel": nivel, "mensagem": DESCRICOES[(parametro, nivel)]}
+            if nivel == "CRITICO" and parametro in RESPOSTAS_AUTOMATICAS:
+                alerta["resposta_automatica"] = RESPOSTAS_AUTOMATICAS[parametro]
+            alertas.append(alerta)
+    return alertas
+\end{lstlisting}
+
+\subsection{Integração com a IA via Ollama Cloud}
+
+A integração utiliza a biblioteca \texttt{ollama} e o modelo \texttt{gpt-oss:120b}. A função \texttt{llm()} é o ponto único de contato com o modelo; toda chamada passa por ela. No método \texttt{analyze()}, o motor coleta a telemetria, avalia os alertas, monta dinamicamente um \textit{prompt} contendo os dados reais, a severidade já classificada, os alertas ativos e um resumo dos últimos ciclos (memória de contexto), e então invoca a IA com o \textit{system prompt} carregado de \texttt{prompts/system\_prompt.md}.
+
+\section{Engenharia de Prompt}
+
+A qualidade da análise depende menos do código e mais do \textit{system prompt}. Adotou-se a estrutura recomendada nas aulas: \textbf{papel} + \textbf{escopo} + \textbf{restrições} + \textbf{tom} + \textbf{formato de saída}, acrescida de exemplos de \textit{few-shot}.
+
+\subsection{A regra de ouro: conectar com a Terra}
+
+O \textit{system prompt} instrui o modelo a, em toda resposta, explicar o que a leitura significa para o mundo em terra. O formato de saída é fixo: estado, diagnóstico técnico, impacto na Terra e recomendação. Essa imposição de formato foi decisiva para a consistência e para atender ao diferencial de 2026.1, que valoriza a articulação do impacto social.
+
+\subsection{Iterações realizadas}
+
+O processo de refinamento seguiu três versões, conforme a Tabela~\ref{tab:iteracoes}. A documentação honesta dessas iterações é, ela própria, valorizada na avaliação.
+
+\begin{table}[H]
+\centering
+\caption{Iterações do \textit{system prompt}}
+\label{tab:iteracoes}
+\small
+\begin{tabular}{@{}cp{11cm}@{}}
+\toprule
+\textbf{Versão} & \textbf{Mudança e resultado} \\
+\midrule
+v1 & \textit{Prompt} genérico. O modelo descrevia números, mas ignorava o impacto terrestre. \\
+v2 & Inclusão da "regra de ouro" e do formato fixo. Melhora expressiva, porém o modelo às vezes recalculava a severidade, contradizendo o Python. \\
+v3 & Instrução explícita para respeitar a severidade já classificada e adição de dois exemplos \textit{few-shot}. Saída estável entre execuções (temperatura 0,3). \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Resultados}
+
+O sistema abre a interface CLI com banner em \textit{ASCII art}, responde a comandos (\texttt{/status}, \texttt{/cenario}, \texttt{/help}) e, diante de qualquer pergunta, gera uma análise no formato definido. Foram validados cinco cenários: operação normal, incêndio intenso, energia crítica, superaquecimento e perda de \textit{downlink}. Em todos, a severidade foi corretamente classificada pelo código e as respostas automatizadas dispararam quando esperado. Repetindo o mesmo cenário três vezes, observou-se variação apenas na redação, mantendo-se constante o diagnóstico e a recomendação --- comportamento adequado para um modelo não-determinístico operado a baixa temperatura.
+
+\section{Proposta de Valor e Modelo de Negócio}
+
+\textbf{Problema terrestre.} Florestas e biomas são perdidos porque focos de calor são detectados e geolocalizados tarde demais para o despacho de brigadas. O EnviroSat encurta a distância entre o dado orbital e a decisão em terra.
+
+\textbf{Quem paga.} Modelo híbrido: o núcleo é público (INPE, órgãos estaduais e IBAMA, como infraestrutura de fiscalização), com camada privada de dado-como-serviço para seguradoras de ativos florestais, certificadoras de crédito de carbono e empresas com compromissos de \textit{compliance} ambiental.
+
+\textbf{Métrica de impacto.} Com o satélite 100\% saudável por um ano, estima-se cobertura de monitoramento da ordem de 2,5 milhões de hectares de áreas protegidas e de risco, com redução de 15\% a 25\% no tempo médio de resposta a focos --- potencialmente centenas de incêndios contidos em estágio inicial e milhares de toneladas de CO\textsubscript{2} evitadas.
+
+\textbf{Modelo de negócio.} Dado-como-serviço (DaaS) com concessão pública na base: o governo financia a operação contínua; o acesso a relatórios, séries históricas e alertas customizados é oferecido por assinatura a clientes privados.
+
+\section{Limitações}
+
+A telemetria é simulada, não proveniente de um satélite real; a contagem de focos não usa imagens nem modelo físico; a IA é não-determinística, com variação de redação mesmo a baixa temperatura; e não há persistência em banco de dados --- a memória de contexto guarda apenas os últimos cinco ciclos em memória volátil.
+
+\section{Conclusão}
+
+O \textit{Mission Control AI} demonstrou, em escala reduzida, o ciclo que define a engenharia de IA aplicada: entender o problema, escolher o \textit{prompt} certo, integrar o modelo ao código, expor os dados de forma útil e validar o funcionamento. A separação entre decisão determinística e contextualização generativa mostrou-se uma boa prática transferível para outros domínios além do espacial. O trabalho reforça a tese de que a IA não substitui o engenheiro, mas amplia o alcance do seu julgamento técnico.
+
+% --------------------------- REFERÊNCIAS ----------------------------
+\renewcommand{\refname}{REFERÊNCIAS}
+\begin{thebibliography}{9}
+\bibitem{inpe} INSTITUTO NACIONAL DE PESQUISAS ESPACIAIS (INPE). \textbf{Programa de Monitoramento da Amazônia (PRODES e DETER)}. Disponível em: \url{http://www.inpe.br}. Acesso em: 2026.
+\bibitem{ollama} OLLAMA. \textbf{Ollama Cloud Documentation}. Disponível em: \url{https://ollama.com}. Acesso em: 2026.
+\bibitem{fiap} GOMES, Jorge Luiz. \textbf{Global Solution 2026.1 --- Mission Control AI}. FIAP, Ciência da Computação, Disciplina de Prompt Engineering and Artificial Intelligence, 2026.
+\end{thebibliography}
+
+\end{document}

@@ -1,0 +1,29 @@
+{
+  "descricao": "Cenários pré-definidos da trilha EnviroSat para testes e gravação do vídeo. Use o comando /cenario <chave> na CLI.",
+  "cenarios": {
+    "normal": {
+      "rotulo": "Operação nominal",
+      "esperado": "Estado NOMINAL — nenhum alerta, satélite entregando cobertura."
+    },
+    "incendio_intenso": {
+      "rotulo": "Temporada de incêndios",
+      "esperado": "Muitos focos detectados e buffer enchendo — alerta de ATENÇÃO no buffer, foco no impacto (despacho de brigadas)."
+    },
+    "falha_energia": {
+      "rotulo": "Bateria crítica",
+      "esperado": "Estado CRÍTICO — energia < 20%, dispara MODO ECONOMIA automaticamente."
+    },
+    "superaquecimento": {
+      "rotulo": "Superaquecimento do payload",
+      "esperado": "Estado CRÍTICO — temperatura > 70°C, dispara PROTEÇÃO TÉRMICA."
+    },
+    "perda_downlink": {
+      "rotulo": "Perda de enlace de descida",
+      "esperado": "Estado CRÍTICO — downlink degradado e buffer saturado, dispara RETENÇÃO SEGURA / PRIORIZAÇÃO DE DOWNLINK."
+    },
+    "extremo": {
+      "rotulo": "Valores fisicamente improváveis",
+      "esperado": "Teste de robustez — todos os parâmetros estourados de uma vez."
+    }
+  }
+}

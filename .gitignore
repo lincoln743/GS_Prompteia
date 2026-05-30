@@ -1,0 +1,15 @@
+# Credenciais — NUNCA versionar
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+venv/
+.Python
+
+# Sistema / editores
+.DS_Store
+.idea/
+.vscode/
