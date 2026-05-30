@@ -13,3 +13,7 @@ venv/
 .DS_Store
 .idea/
 .vscode/
+
+# Enunciado do professor (nao versionar)
+*.pdf
+!relatorio_abnt.pdf
