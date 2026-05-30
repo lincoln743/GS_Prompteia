@@ -17,3 +17,6 @@ venv/
 # Enunciado do professor (nao versionar)
 *.pdf
 !relatorio_abnt.pdf
+
+# Enunciado do professor (nao versionar)
+05_Prompt*.pdf
