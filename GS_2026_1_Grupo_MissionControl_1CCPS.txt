@@ -11,7 +11,7 @@ Trilha escolhida: EnviroSat (Observação Ambiental)
 
 Link do repositório GitHub: https://github.com/lincoln743/GS_Prompteia
 
-Link do vídeo de demonstração: https://www.youtube.com/watch?v=SEU_ID_AQUI
+Link do vídeo de demonstração: https://www.youtube.com/watch?v=5kLX5SEHVpM
 
 Disciplina: Prompt Engineering and Artificial Intelligence
 Professor: Jorge Luiz Gomes
